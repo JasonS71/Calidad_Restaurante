@@ -333,11 +333,12 @@ function editarPlato(id) {
             id: id
         },
         success: function (response) {
-            const datos = JSON.parse(response);
-            $('#plato').val(datos.nombre);
-            $('#precio').val(datos.precio);
-            $('#foto_actual').val(datos.foto_actual);
-            $('#id').val(datos.id);
+            const plato = JSON.parse(response);
+            $('#id').val(plato.id);
+            $('#plato').val(plato.nombre);
+            $('#precio').val(plato.precio);
+            $('#descripcion').val(plato.descripcion);
+            $('#foto_actual').val(plato.imagen);
             $('#btnAccion').val('Modificar');
         },
         error: function (error) {

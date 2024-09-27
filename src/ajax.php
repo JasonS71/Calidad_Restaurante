@@ -80,7 +80,16 @@ if (isset($_GET['detalle'])) {
     $id = $_GET['id'];
     $sql = mysqli_query($conexion, "SELECT * FROM platos WHERE id = $id");
     $data = mysqli_fetch_array($sql);
-    echo json_encode($data);
+
+    $response = array(
+        'id' => $data['id'],
+        'nombre' => $data['nombre'],
+        'precio' => $data['precio'],
+        'descripcion' => $data['descripcion'],
+        'foto_actual' => $data['imagen']
+    );
+
+    echo json_encode($response);
     exit;
 } else if (isset($_GET['finalizarPedido'])) {
     $id_sala = $_GET['id_sala'];
