@@ -29,7 +29,13 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                                                 <img src="<?php echo ($data['imagen'] == null) ? '../assets/img/default.png' : $data['imagen']; ?>" class="product-image" alt="Product Image">
                                             </div>
                                             <h6 class="my-3"><?php echo $data['nombre']; ?></h6>
-
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+                                            <div class="bg-light py-2 px-3 mt-2 rounded">
+                                                <p class="text-muted mb-0">
+                                                    <?php echo $data['descripcion']; ?>
+                                                </p>
+                                            </div>
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
                                             <div class="bg-gray py-2 px-3 mt-4">
                                                 <h2 class="mb-0">
                                                     $<?php echo $data['precio']; ?>
