@@ -38,7 +38,8 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                                             <?php if (empty($resultPedido)) {
                                                 echo '<a class="btn btn-outline-info" href="pedido.php?id_sala=' . $id . '&mesa=' . $item . '">Atender</a>';
                                             } else {
-                                                echo '<a class="btn btn-outline-success" href="finalizar.php?id_sala=' . $id . '&mesa=' . $item . '">Finalizar</a>';
+                                                echo '<div class="mb-2"><a class="btn btn-outline-success" href="editar.php?id_sala=' . $id . '&mesa=' . $item . '">Editar pedido</a></div>';
+                                                echo '<div><a class="btn btn-outline-success" href="finalizar.php?id_sala=' . $id . '&mesa=' . $item . '">Finalizar</a></div>';
                                             } ?>
 
                                         </div>
