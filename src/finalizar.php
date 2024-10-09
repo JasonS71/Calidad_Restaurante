@@ -64,6 +64,15 @@ include_once "includes/header.php";
                             Finalizar
                         </a>
                     </div>
+                    <script>
+                    const totalAmount = <?php echo json_encode($result['total']); ?>;
+                    </script>
+                    <div class="mt-4">
+                        <a class="btn btn-primary btn-block btn-flat" href="#" onclick= "generate_qr_payment('$' + totalAmount)" " style="background-color:green">
+                        <i class="fas fa-money-bill-wave mr-2"></i>
+                            Generar QR de pago
+                        </a>
+                    </div>
                 </div>
             <?php } ?>
         </div>
