@@ -70,6 +70,74 @@ if (isset($_GET['detalle'])) {
 
     echo json_encode($msg);
     die();
+} else if (isset($_GET['editarPedido'])) {
+    // var_dump($_GET);
+    // die();
+
+    $id_sala = $_GET['id_sala'];
+    $id_user = $_SESSION['idUser'];
+    $mesa = $_GET['mesa'];
+    $observacion = $_GET['observacion'];
+    $id_pedido = $_GET['id_pedido'];
+
+    // Calcular el total de los productos del usuario
+    $consulta = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN platos p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+    $total = 0;
+    while ($row = mysqli_fetch_assoc($consulta)) {
+        $total += $row['cantidad'] * $row['precio'];
+    }
+
+    // Actualizar el pedido existente
+    $actualizar = mysqli_query($conexion, "UPDATE pedidos SET id_sala = $id_sala, num_mesa = $mesa, total = '$total', observacion = '$observacion' WHERE id = $id_pedido AND id_usuario = $id_user");
+
+    if ($actualizar == 1) {
+        // Obtener los detalles actuales del pedido
+        $consulta_detalle_actual = mysqli_query($conexion, "SELECT * FROM detalle_pedidos WHERE id_pedido = $id_pedido");
+        $detalles_actuales = array();
+        while ($detalle = mysqli_fetch_assoc($consulta_detalle_actual)) {
+            $detalles_actuales[$detalle['id']] = $detalle;
+        }
+
+        // Actualizar detalles del pedido o insertarlos si no existen
+        $consulta = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN platos p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+        while ($dato = mysqli_fetch_assoc($consulta)) {
+            $nombre = $dato['nombre'];
+            $cantidad = $dato['cantidad'];
+            $precio = $dato['precio'];
+
+            // Buscar si este detalle ya existe en `detalle_pedidos`
+            $id_detalle_actual = null;
+            foreach ($detalles_actuales as $id_detalle => $detalle) {
+                if ($detalle['nombre'] == $nombre) {
+                    $id_detalle_actual = $id_detalle;
+                    break;
+                }
+            }
+
+            if ($id_detalle_actual) {
+                // Actualizar detalle existente
+                $actualizarDet = mysqli_query($conexion, "UPDATE detalle_pedidos SET precio = '$precio', cantidad = $cantidad WHERE id = $id_detalle_actual");
+            } else {
+                // Insertar nuevo detalle
+                $actualizarDet = mysqli_query($conexion, "INSERT INTO detalle_pedidos (nombre, precio, cantidad, id_pedido) VALUES ('$nombre', '$precio', $cantidad, $id_pedido)");
+            }
+        }
+
+        if ($actualizarDet) {
+            // Eliminar productos temporales del pedido
+            $eliminar = mysqli_query($conexion, "DELETE FROM temp_pedidos WHERE id_usuario = $id_user");
+            $sala = mysqli_query($conexion, "SELECT * FROM salas WHERE id = $id_sala");
+            $resultSala = mysqli_fetch_assoc($sala);
+            $msg = array('mensaje' => $resultSala['mesas']);
+        } else {
+            $msg = array('mensaje' => 'Error actualizando detalles');
+        }
+    } else {
+        $msg = array('mensaje' => 'Error actualizando pedido');
+    }
+
+    echo json_encode($msg);
+    die();
 } else if (isset($_GET['editarUsuario'])) {
     $idusuario = $_GET['id'];
     $sql = mysqli_query($conexion, "SELECT * FROM usuario WHERE idusuario = $idusuario");

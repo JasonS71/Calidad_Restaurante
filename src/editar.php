@@ -61,6 +61,7 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                         <div class="tab-pane fade show active" id="vert-tabs-right-home" role="tabpanel" aria-labelledby="vert-tabs-right-home-tab">
                             <input type="hidden" id="id_sala" value="<?php echo $_GET['id_sala'] ?>">
                             <input type="hidden" id="mesa" value="<?php echo $_GET['mesa'] ?>">
+                            <input type="hidden" id="id_pedido" value="<?php echo $id_pedido?>">
                             <div>Sala: <?php echo $id_sala;?></div>
                             <div>Mesa: <?php echo $mesa;?></div>
                             <div class="row">
@@ -131,7 +132,8 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                                 <label for="observacion">Observaciones</label>
                                 <textarea id="observacion" class="form-control" rows="3" placeholder="Observaciones"></textarea>
                             </div>
-                            <button class="btn btn-primary" type="button" id="realizar_pedido">Realizar pedido</button>
+                            <!-- <button class="btn btn-primary" type="button" id="realizar_pedido">Realizar pedido</button> -->
+                            <button class="btn btn-primary" type="button" id="editar_pedido">Editar pedido</button>
                         </div>
                     </div>
                 </div>

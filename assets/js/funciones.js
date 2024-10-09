@@ -77,6 +77,55 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    $('#editar_pedido').click(function (e) {
+        e.preventDefault();
+        // console.log('Botón Editar pedido clicado');
+        var action = 'editarPedido';
+        var id_sala = $('#id_sala').val();
+        var mesa = $('#mesa').val();
+        var observacion = $('#observacion').val();
+        var id_pedido = $('#id_pedido').val();
+        // console.log(id_sala, mesa, observacion, id_pedido);
+        $.ajax({
+            url: 'ajax.php',
+            async: true,
+            data: {
+                editarPedido: action,
+                id_sala: id_sala,
+                mesa: mesa,
+                observacion: observacion,
+                id_pedido: id_pedido
+            },
+            success: function (response) {
+                console.log(response);
+                const res = JSON.parse(response);
+                if (response != 'error') {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Pedido Solicitado',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                    setTimeout(() => {
+                        window.location = 'mesas.php?id_sala=' + id_sala + '&mesas=' + res.mensaje;
+                    }, 1500);
+                } else {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Error al generar',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                }
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    });
+
     $('.finalizarPedido').click(function () {
         var action = 'finalizarPedido';
         var id_sala = $('#id_sala').val();
