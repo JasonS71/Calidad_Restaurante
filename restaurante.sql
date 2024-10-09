@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-09-2024 a las 16:33:08
+-- Tiempo de generación: 09-10-2024 a las 04:59:48
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -73,7 +73,19 @@ INSERT INTO `detalle_pedidos` (`id`, `nombre`, `precio`, `cantidad`, `id_pedido`
 (9, 'CEBICHE', 25.00, 1, 6),
 (10, 'ARROZ CON POLLO122', 8.00, 4, 6),
 (11, 'Mondongo', 15.00, 1, 6),
-(12, 'Mondongo', 15.00, 1, 7);
+(12, 'Mondongo', 15.00, 1, 7),
+(13, 'Mondongo', 15.00, 4, 8),
+(14, 'AJI DE GALLINA', 10.00, 3, 8),
+(15, 'CEBICHE', 25.00, 2, 8),
+(16, 'ARROZ CON POLLO122', 8.00, 1, 8),
+(17, 'AJI DE GALLINA', 10.00, 5, 9),
+(18, 'CEBICHE', 25.00, 6, 9),
+(19, 'test', 123.00, 4, 10),
+(20, 'Whatever', 11.00, 4, 10),
+(21, 'Mondongo', 15.00, 4, 10),
+(22, 'Mondongo', 15.00, 1, 11),
+(23, 'CEBICHE', 25.00, 2, 11),
+(24, 'AJI DE GALLINA', 10.00, 3, 11);
 
 -- --------------------------------------------------------
 
@@ -102,8 +114,12 @@ INSERT INTO `pedidos` (`id`, `id_sala`, `num_mesa`, `fecha`, `total`, `observaci
 (3, 3, 5, '2023-05-25 20:04:17', 10.00, '', 'FINALIZADO', 1),
 (4, 2, 10, '2024-09-25 12:12:28', 25.00, '', 'FINALIZADO', 1),
 (5, 1, 1, '2024-09-25 12:11:53', 15.00, '', 'FINALIZADO', 5),
-(6, 2, 3, '2024-09-25 12:13:02', 72.00, '', 'PENDIENTE', 1),
-(7, 1, 2, '2024-09-25 12:37:01', 15.00, '', 'PENDIENTE', 5);
+(6, 2, 3, '2024-10-09 02:53:31', 72.00, '', 'FINALIZADO', 1),
+(7, 1, 2, '2024-10-09 02:53:20', 15.00, '', 'FINALIZADO', 5),
+(8, 3, 1, '2024-10-09 02:53:59', 148.00, '', 'PENDIENTE', 1),
+(9, 3, 2, '2024-10-09 02:54:28', 200.00, '', 'PENDIENTE', 1),
+(10, 2, 2, '2024-10-09 02:58:36', 596.00, '', 'PENDIENTE', 1),
+(11, 1, 3, '2024-10-09 02:59:14', 95.00, '', 'PENDIENTE', 1);
 
 -- --------------------------------------------------------
 
@@ -126,12 +142,12 @@ CREATE TABLE `platos` (
 --
 
 INSERT INTO `platos` (`id`, `nombre`, `precio`, `imagen`, `fecha`, `estado`, `descripcion`) VALUES
-(1, 'AJI DE GALLINA', 10.00, '', NULL, 1, ''),
-(2, 'CEBICHE', 25.00, '', NULL, 1, ''),
-(3, 'ARROZ CON POLLO122', 8.00, '', NULL, 1, ''),
-(4, 'Mondongo', 15.00, '', NULL, 1, '55555555555555555555555'),
-(5, 'Whatever', 11.00, '', NULL, 1, ''),
-(6, 'asdas', 123.00, '', NULL, 1, 'asdasd');
+(1, 'AJI DE GALLINA', 10.00, '', NULL, 1, 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32'),
+(2, 'CEBICHE', 25.00, '', NULL, 1, 'There are many variations of passages of Lorem Ipsum available'),
+(3, 'ARROZ CON POLLO', 8.00, '', NULL, 1, 'Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia'),
+(4, 'Mondongo', 15.00, '', NULL, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s'),
+(5, 'Whatever', 11.00, '', NULL, 1, 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'),
+(6, 'test', 123.00, '', NULL, 1, 'testing');
 
 -- --------------------------------------------------------
 
@@ -169,6 +185,15 @@ CREATE TABLE `temp_pedidos` (
   `id_producto` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `temp_pedidos`
+--
+
+INSERT INTO `temp_pedidos` (`id`, `cantidad`, `precio`, `id_producto`, `id_usuario`) VALUES
+(48, 1, 15.00, 4, 1),
+(49, 2, 25.00, 2, 1),
+(50, 3, 10.00, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -257,13 +282,13 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de la tabla `detalle_pedidos`
 --
 ALTER TABLE `detalle_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `platos`
@@ -281,7 +306,7 @@ ALTER TABLE `salas`
 -- AUTO_INCREMENT de la tabla `temp_pedidos`
 --
 ALTER TABLE `temp_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
