@@ -2,12 +2,56 @@
 session_start();
 if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
     include_once "includes/header.php";
+    include "../conexion.php";
+    $id_sala = $_GET['id_sala'];
+    $mesa = $_GET['mesa'];
+
+    // Eliminar información de la tabla temp_pedidos
+    $eliminarTempPedidos = mysqli_query($conexion, "DELETE FROM temp_pedidos");
+    if (!$eliminarTempPedidos) {
+        die("Error al eliminar registros: " . mysqli_error($conexion));
+    }
+    // Obtener el ID del pedido
+    $queryIdPedido = mysqli_query($conexion, "SELECT id FROM pedidos WHERE id_sala = $id_sala AND num_mesa = $mesa AND estado = 'PENDIENTE'");
+    $resultIdPedido = mysqli_fetch_assoc($queryIdPedido);
+
+    if ($resultIdPedido) {
+        $id_pedido = $resultIdPedido['id'];
+        echo "ID Pedido: " . $id_pedido . "<br>";
+
+        // Obtener detalles del pedido
+        $queryDetalle = mysqli_query($conexion, "SELECT * FROM detalle_pedidos WHERE id_pedido = $id_pedido");
+
+        while ($detalle = mysqli_fetch_assoc($queryDetalle)) {
+            $nombre_producto = $detalle['nombre'];
+            $cantidad = $detalle['cantidad'];
+            $precio = $detalle['precio'];
+
+            // Obtener el id del producto de la tabla platos
+            $queryIdProducto = mysqli_query($conexion, "SELECT id FROM platos WHERE nombre = '$nombre_producto'");
+            $resultIdProducto = mysqli_fetch_assoc($queryIdProducto);
+
+            if ($resultIdProducto) {
+                $id_producto = $resultIdProducto['id'];
+
+                // Insertar en temp_pedidos
+                $insertarTempPedidos = mysqli_query($conexion, "INSERT INTO temp_pedidos (cantidad, precio, id_producto, id_usuario) VALUES ($cantidad, $precio, $id_producto, 1)");
+                if (!$insertarTempPedidos) {
+                    die("Error al insertar en temp_pedidos: " . mysqli_error($conexion));
+                }
+            } else {
+                echo "No se encontró el producto: " . $nombre_producto . "<br>";
+            }
+        }
+    } else {
+        echo "No se encontró el pedido.";
+    }
 ?>
     <div class="card card-primary card-outline">
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-edit"></i>
-                Platos
+                Editar Pedido
             </h3>
         </div>
         <div class="card-body">
@@ -17,9 +61,12 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                         <div class="tab-pane fade show active" id="vert-tabs-right-home" role="tabpanel" aria-labelledby="vert-tabs-right-home-tab">
                             <input type="hidden" id="id_sala" value="<?php echo $_GET['id_sala'] ?>">
                             <input type="hidden" id="mesa" value="<?php echo $_GET['mesa'] ?>">
+                            <input type="hidden" id="id_pedido" value="<?php echo $id_pedido?>">
+                            <div>Sala: <?php echo $id_sala;?></div>
+                            <div>Mesa: <?php echo $mesa;?></div>
                             <div class="row">
                                 <?php
-                                include "../conexion.php";
+                                
                                 $query = mysqli_query($conexion, "SELECT * FROM platos WHERE estado = 1");
                                 $result = mysqli_num_rows($query);
                                 if ($result > 0) {
@@ -53,14 +100,40 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
                                 } ?>
                             </div>
                         </div>
+                        
                         <div class="tab-pane fade" id="pedido" role="tabpanel" aria-labelledby="pedido-tab">
-                            <div class="row" id="detalle_pedido"></div>
+                            <div class="row" id="detalle_pedido">
+                                <!-- ooooooooooooooooooooooooooooooooooooo -->
+                                <?php
+                                    // $queryIdPedido = mysqli_query($conexion, "SELECT id FROM pedidos WHERE id_sala = $id_sala AND num_mesa = $mesa AND estado = 'PENDIENTE'");
+                                    // $resultIdPedido = mysqli_fetch_assoc($queryIdPedido);
+                                    // $id_pedido = $resultIdPedido['id'];
+                                    // echo "ID Pedido: " . $id_pedido . "<br>";
+
+                                    // $queryDetalle = mysqli_query($conexion, "SELECT * FROM detalle_pedidos WHERE id_pedido = $id_pedido");
+
+                                    // // Verificamos si hay resultados
+                                    // if (mysqli_num_rows($queryDetalle) > 0) {
+                                    //     // Recorremos cada fila del resultado
+                                    //     while ($row = mysqli_fetch_assoc($queryDetalle)) {
+                                    //         echo "Nombre: " . $row['nombre'] . "<br>";
+                                    //         echo "Precio: " . $row['precio'] . "<br>";
+                                    //         echo "Cantidad: " . $row['cantidad'] . "<br>";
+                                    //         echo "-----------------------------<br>";
+                                    //     }
+                                    // } else {
+                                    //     echo "No hay detalles para este pedido.";
+                                    // }
+                                ?>
+                                <!-- ooooooooooooooooooooooooooooooooooooo -->
+                            </div>
                             <hr>
                             <div class="form-group">
                                 <label for="observacion">Observaciones</label>
                                 <textarea id="observacion" class="form-control" rows="3" placeholder="Observaciones"></textarea>
                             </div>
-                            <button class="btn btn-primary" type="button" id="realizar_pedido">Realizar pedido</button>
+                            <!-- <button class="btn btn-primary" type="button" id="realizar_pedido">Realizar pedido</button> -->
+                            <button class="btn btn-primary" type="button" id="editar_pedido">Editar pedido</button>
                         </div>
                     </div>
                 </div>
