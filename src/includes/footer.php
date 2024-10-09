@@ -31,6 +31,7 @@
 
 <script src="../assets/js/sweetalert2.all.min.js"></script>
 <script src="../assets/js/funciones.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qr-code-styling/lib/qr-code-styling.js"></script>
 </body>
 
 </html>
