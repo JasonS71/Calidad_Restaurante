@@ -76,7 +76,11 @@ $totalVentas = mysqli_fetch_assoc($query5);
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="lista_ventas.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <?php if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3) { ?>
+                        <a href="lista_pendientes.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <?php } else { ?>
+                            <a href="lista_ventas.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <?php } ?>
                 </div>
             </div>
             <!-- ./col -->

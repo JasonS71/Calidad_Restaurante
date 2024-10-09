@@ -94,14 +94,34 @@ if (empty($_SESSION['active'])) {
                                             <p>Nueva venta</p>
                                         </a>
                                     </li>';
-                                } if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
+                                } 
+                                if ($_SESSION['rol'] == 3) {
+                                    echo '<li class="nav-item">
+                                        <a href="lista_pendientes.php" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Pedidos pendientes</p>
+                                        </a>
+                                    </li>';
+                                }
+
+                                if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                                     echo '<li class="nav-item">
                                         <a href="lista_ventas.php" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Historial ventas</p>
                                         </a>
                                     </li>';
-                                } ?>
+                                }
+                                
+                                if ($_SESSION['rol'] == 2) {
+                                    echo '<li class="nav-item">
+                                        <a href="lista_pendientes.php" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Pedidos pendientes</p>
+                                        </a>
+                                    </li>';
+                                }
+                                ?>
                             </ul>
 
                         </li>
