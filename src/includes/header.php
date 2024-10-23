@@ -145,6 +145,14 @@ if (empty($_SESSION['active'])) {
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="analisis_venta.php" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-line"></i>
+                                    <p>
+                                        Análisis de venta
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-user-cog"></i>
                                     <p>

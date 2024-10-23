@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-10-2024 a las 04:59:48
+-- Tiempo de generación: 23-10-2024 a las 02:29:44
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -83,9 +83,10 @@ INSERT INTO `detalle_pedidos` (`id`, `nombre`, `precio`, `cantidad`, `id_pedido`
 (19, 'test', 123.00, 4, 10),
 (20, 'Whatever', 11.00, 4, 10),
 (21, 'Mondongo', 15.00, 4, 10),
-(22, 'Mondongo', 15.00, 1, 11),
-(23, 'CEBICHE', 25.00, 2, 11),
-(24, 'AJI DE GALLINA', 10.00, 3, 11);
+(22, 'Mondongo', 15.00, 6, 11),
+(23, 'CEBICHE', 25.00, 7, 11),
+(24, 'AJI DE GALLINA', 10.00, 8, 11),
+(25, 'Et nostrum proident', 123.00, 1, 11);
 
 -- --------------------------------------------------------
 
@@ -119,7 +120,7 @@ INSERT INTO `pedidos` (`id`, `id_sala`, `num_mesa`, `fecha`, `total`, `observaci
 (8, 3, 1, '2024-10-09 02:53:59', 148.00, '', 'PENDIENTE', 1),
 (9, 3, 2, '2024-10-09 02:54:28', 200.00, '', 'PENDIENTE', 1),
 (10, 2, 2, '2024-10-09 02:58:36', 596.00, '', 'PENDIENTE', 1),
-(11, 1, 3, '2024-10-09 02:59:14', 95.00, '', 'PENDIENTE', 1);
+(11, 1, 3, '2024-10-09 11:25:07', 468.00, '', 'FINALIZADO', 1);
 
 -- --------------------------------------------------------
 
@@ -147,7 +148,8 @@ INSERT INTO `platos` (`id`, `nombre`, `precio`, `imagen`, `fecha`, `estado`, `de
 (3, 'ARROZ CON POLLO', 8.00, '', NULL, 1, 'Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia'),
 (4, 'Mondongo', 15.00, '', NULL, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s'),
 (5, 'Whatever', 11.00, '', NULL, 1, 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'),
-(6, 'test', 123.00, '', NULL, 1, 'testing');
+(6, 'test', 123.00, '', NULL, 1, 'testing'),
+(7, 'Et nostrum proident', 123.00, '', NULL, 1, 'Consectetur exercita');
 
 -- --------------------------------------------------------
 
@@ -191,9 +193,8 @@ CREATE TABLE `temp_pedidos` (
 --
 
 INSERT INTO `temp_pedidos` (`id`, `cantidad`, `precio`, `id_producto`, `id_usuario`) VALUES
-(48, 1, 15.00, 4, 1),
-(49, 2, 25.00, 2, 1),
-(50, 3, 10.00, 1, 1);
+(62, 5, 10.00, 1, 1),
+(63, 6, 25.00, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -282,7 +283,7 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de la tabla `detalle_pedidos`
 --
 ALTER TABLE `detalle_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
@@ -294,7 +295,7 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT de la tabla `platos`
 --
 ALTER TABLE `platos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `salas`
@@ -306,7 +307,7 @@ ALTER TABLE `salas`
 -- AUTO_INCREMENT de la tabla `temp_pedidos`
 --
 ALTER TABLE `temp_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

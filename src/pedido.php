@@ -3,7 +3,6 @@ session_start();
 if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
     include_once "includes/header.php";
     include "../conexion.php";
-    // Eliminar información de la tabla temp_pedidos
     $eliminarTempPedidos = mysqli_query($conexion, "DELETE FROM temp_pedidos");
     if (!$eliminarTempPedidos) {
         die("Error al eliminar registros: " . mysqli_error($conexion));

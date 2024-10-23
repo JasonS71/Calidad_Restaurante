@@ -6,12 +6,10 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
     $id_sala = $_GET['id_sala'];
     $mesa = $_GET['mesa'];
 
-    // Eliminar información de la tabla temp_pedidos
     $eliminarTempPedidos = mysqli_query($conexion, "DELETE FROM temp_pedidos");
     if (!$eliminarTempPedidos) {
         die("Error al eliminar registros: " . mysqli_error($conexion));
     }
-    // Obtener el ID del pedido
     $queryIdPedido = mysqli_query($conexion, "SELECT id FROM pedidos WHERE id_sala = $id_sala AND num_mesa = $mesa AND estado = 'PENDIENTE'");
     $resultIdPedido = mysqli_fetch_assoc($queryIdPedido);
 
@@ -19,7 +17,6 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
         $id_pedido = $resultIdPedido['id'];
         echo "ID Pedido: " . $id_pedido . "<br>";
 
-        // Obtener detalles del pedido
         $queryDetalle = mysqli_query($conexion, "SELECT * FROM detalle_pedidos WHERE id_pedido = $id_pedido");
 
         while ($detalle = mysqli_fetch_assoc($queryDetalle)) {
@@ -27,14 +24,12 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
             $cantidad = $detalle['cantidad'];
             $precio = $detalle['precio'];
 
-            // Obtener el id del producto de la tabla platos
             $queryIdProducto = mysqli_query($conexion, "SELECT id FROM platos WHERE nombre = '$nombre_producto'");
             $resultIdProducto = mysqli_fetch_assoc($queryIdProducto);
 
             if ($resultIdProducto) {
                 $id_producto = $resultIdProducto['id'];
 
-                // Insertar en temp_pedidos
                 $insertarTempPedidos = mysqli_query($conexion, "INSERT INTO temp_pedidos (cantidad, precio, id_producto, id_usuario) VALUES ($cantidad, $precio, $id_producto, 1)");
                 if (!$insertarTempPedidos) {
                     die("Error al insertar en temp_pedidos: " . mysqli_error($conexion));
